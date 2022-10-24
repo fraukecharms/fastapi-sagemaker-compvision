@@ -38,3 +38,4 @@ def query_endpoint():
     normalized_boxes, class_names, scores = parse_response(response_readable)
 
     print(class_names)
+    return normalized_boxes, class_names, scores
