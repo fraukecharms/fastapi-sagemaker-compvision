@@ -1,6 +1,7 @@
 
 import matplotlib.patches as patches
 from matplotlib import pyplot as plt
+#from matplotlib.backends.backend_agg import FigureCanvasAgg
 from PIL import Image
 from PIL import ImageColor
 import numpy as np
