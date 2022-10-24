@@ -18,9 +18,13 @@ def query_endpoint():
 
     client = boto3.client('sagemaker-runtime')
 
-    content_type = "application/x-image"         # The MIME type of the input data in the request body.
-    accept = "application/json;verbose;n_predictions=22"     # The desired MIME type of the inference in the response.
-    payload = input_img_rb                                             # Payload for inference.
+    # The MIME type of the input data in the request body.
+    content_type = "application/x-image"         
+    # The desired MIME type of the inference in the response.
+    accept = "application/json;verbose;n_predictions=22"   
+    # Payload for inference.
+    payload = input_img_rb         
+   
     response = client.invoke_endpoint(
         EndpointName=endpoint_name, 
         ContentType=content_type,
