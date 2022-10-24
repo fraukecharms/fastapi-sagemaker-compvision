@@ -8,7 +8,7 @@
 # Create An Object Detection Demo 
 
 using AWS Rekognition + FastAPI + AWS App Runner
-
+Make sure you have the quota to deploy endpoint in the appropriate region.
 
 ## Docker Instructions
 
