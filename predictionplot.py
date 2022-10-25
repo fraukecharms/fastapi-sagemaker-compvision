@@ -7,7 +7,7 @@ from PIL import ImageColor
 import numpy as np
 from IPython.display import Image as ipImage
 from IPython.display import display as ipdisplay
-
+import os
 
 def display_predictions(img_jpg, normalized_boxes, classes_names, confidences):
     
@@ -50,5 +50,11 @@ def display_predictions(img_jpg, normalized_boxes, classes_names, confidences):
     pilimg = Image.frombytes('RGB', fig.canvas.get_width_height(),fig.canvas.tostring_rgb())
     
     # turn off matplotlib inline, otherwise get 2 plots
-    ipdisplay(pilimg)
+    #ipdisplay(pilimg)
+    if not os.path.exists('images_with_boxes'):
+        os.mkdir('images_with_boxes')
+    #outpath = "images_with_boxes/pic.png"
+    #pilimg.save(outpath)
+    
+    plt.savefig("images_with_boxes/pic.png", bbox_inches=None, pad_inches=0)
     
