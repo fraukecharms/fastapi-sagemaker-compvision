@@ -8,8 +8,8 @@ def query_endpoint():
 
     client = boto3.client('sagemaker-runtime', region_name = aws_region)
 
-    endpoint_name = 'inference-pytorch-od1-fasterrcnn-resnet50-fpn'
-
+    #endpoint_name = 'inference-pytorch-od1-fasterrcnn-resnet50-fpn'
+    endpoint_name = 'faster-rcnn'
     image_file_name = 'Naxos_Taverna.jpg'
 
     with open(image_file_name, "rb") as file:
