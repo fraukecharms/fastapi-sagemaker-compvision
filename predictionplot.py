@@ -10,18 +10,16 @@ from IPython.display import display as ipdisplay
 import os
 
 def display_predictions(img_jpg, normalized_boxes, classes_names, confidences):
-    
+    plt.close('all')
     colors = list(ImageColor.colormap.values())
     
     image_np = np.array(Image.open(img_jpg))
     
-    #fig = plt.figure(figsize=(20, 20))
-    fig = plt.figure()
+    fig = plt.figure(figsize=(20, 20), frameon=False)
+    #fig = plt.figure(frameon=False)
     ax = plt.axes()
     ax.set_axis_off()
-    
-    fig.set_tight_layout(True)
-    fig.tight_layout(pad = 0)
+
     ax.imshow(image_np)
 
     for idx in range(len(normalized_boxes)):
@@ -44,17 +42,22 @@ def display_predictions(img_jpg, normalized_boxes, classes_names, confidences):
             bbox=dict(facecolor="white", alpha=0.5),
         )
         
-    fig.canvas.draw()
-    rgbstring = fig.canvas.tostring_argb()
+    plt.show()
+    canvas = FigureCanvasAgg(fig)
+    print(fig.bbox)
     
-    pilimg = Image.frombytes('RGB', fig.canvas.get_width_height(),fig.canvas.tostring_rgb())
+    
+    canvas.draw()
+    rgbstring = canvas.tostring_argb()
+    
+    pilimg = Image.frombytes('RGB', canvas.get_width_height(), canvas.tostring_rgb())
     
     # turn off matplotlib inline, otherwise get 2 plots
-    #ipdisplay(pilimg)
+    ipdisplay(pilimg)
     if not os.path.exists('images_with_boxes'):
         os.mkdir('images_with_boxes')
-    #outpath = "images_with_boxes/pic.png"
-    #pilimg.save(outpath)
+    outpath = "images_with_boxes/pic2.png"
+    pilimg.save(outpath)
     
-    plt.savefig("images_with_boxes/pic.png", bbox_inches=None, pad_inches=0)
+    #plt.savefig("images_with_boxes/pic.png", bbox_inches='tight', pad_inches=0)
     
