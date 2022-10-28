@@ -12,9 +12,10 @@ Make sure you have the quota to deploy endpoint in the appropriate region.
 
 ## Docker Instructions
 
-`docker build --tag visiondemo .`
-
-`docker run -p 127.0.0.1:8080:8080 visiondemo`
+```console
+docker build --tag visiondemo .
+docker run -p 127.0.0.1:8080:8080 visiondemo
+```
 
 
 ## ECR Instructions
@@ -29,8 +30,8 @@ Make sure you have the quota to deploy endpoint in the appropriate region.
 
 
 ```console
-$ make install
-$ python main.py
+make install
+python main.py
 ```
 
 
