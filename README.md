@@ -12,7 +12,7 @@ Make sure you have the quota to deploy endpoint in the appropriate region.
 
 ## Docker Instructions
 
-```console
+```sh
 docker build --tag visiondemo .
 docker run -p 127.0.0.1:8080:8080 visiondemo
 ```
@@ -29,7 +29,7 @@ docker run -p 127.0.0.1:8080:8080 visiondemo
 ## Run without docker
 
 
-```console
+```sh
 make install
 python main.py
 ```
