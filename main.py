@@ -9,6 +9,8 @@ import boto3
 import io
 
 from helper_rekognition import process_response, draw_bounding_boxes
+from helper_sagemaker import draw_bounding_boxes3
+from ping_endpoint import query_endpoint2
 from PIL import Image
 
 # from PIL import Image, ImageDraw
@@ -29,11 +31,14 @@ async def root():
 async def label_objects(photo: UploadFile = File(...)):
     """upload image"""
 
-    client = boto3.client("rekognition")
+    #client = boto3.client("rekognition")
 
-    response = client.detect_labels(Image={"Bytes": photo.file.read()})
+    #response = client.detect_labels(Image={"Bytes": photo.file.read()})
+    
+    endpoint_name = "faster-rcnn"
+    normalized_boxes, class_names, scores = query_endpoint2(endpoint_name, photo.file.read())
 
-    return response
+    return class_names[0]
 
 
 @app.post("/draw_box")
