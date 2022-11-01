@@ -5,11 +5,10 @@ from fastapi.responses import StreamingResponse
 
 # from fastapi.responses import FileResponse
 import uvicorn
-import boto3
+#import boto3
 import io
 
-from helper_rekognition import process_response, draw_bounding_boxes
-#from helper_sagemaker import draw_bounding_boxes3
+from helper_sagemaker import draw_bounding_boxes3
 from ping_endpoint import query_endpoint2
 from PIL import Image
 
@@ -38,8 +37,14 @@ async def label_objects(photo: UploadFile = File(...)):
     endpoint_name = "faster-rcnn"
     #normalized_boxes, class_names, scores = query_endpoint2(endpoint_name, photo.file.read())
 
-    _, class_names, _ = query_endpoint2(endpoint_name, photo.file.read())
-    return class_names[0]
+    _, class_names, scores = query_endpoint2(endpoint_name, photo.file.read())
+    
+    response = {}
+    
+    response["label"] = class_names[0]
+    response["confidence"] = scores[0]
+    
+    return response
 
 
 @app.post("/draw_box")
@@ -52,20 +57,29 @@ async def draw_bounding_box(photo: UploadFile = File(...)):
     if file_ext == "jpg":
         file_ext = "jpeg"
 
-    if not (file_ext in ("jpeg", "png")):
+    if not (file_ext == "jpeg"):
         raise HTTPException(status_code=415, detail="Unsupported file provided.")
 
     photobytes = bytearray(photo.file.read())
 
-    client = boto3.client("rekognition")
-    response = client.detect_labels(Image={"Bytes": photobytes})
-    boxes = process_response(response)
 
+    endpoint_name = "faster-rcnn"
+
+    normalized_boxes, _, _ = query_endpoint2(endpoint_name, photobytes)
+    
     image_stream = io.BytesIO(photobytes)
     image_stream.seek(0)
     photo2 = Image.open(image_stream)
+    
+    rawbox = normalized_boxes[0]
+    left, bot, right, top = rawbox
+    box = {}
+    box["Left"] = left
+    box["Top"] = bot
+    box["Right"] = right
+    box["Bottom"] = top
 
-    imgwbox = draw_bounding_boxes(photo2, boxes[0])
+    imgwbox = draw_bounding_boxes3(photo2, box)
 
     # conversion was necessary when I was being sloppy with jpeg vs png
     # imgwbox2 = imgwbox.convert("RGB")
