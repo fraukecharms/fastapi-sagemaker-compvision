@@ -20,13 +20,13 @@ jobs:
     - name: Lint with pylint
       run: |
         make lint
-    # - name: Configure AWS Credentials
-    #   uses: aws-actions/configure-aws-credentials@v1
-    #   with:
-    #     role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
     #     #aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
     #     #aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #     aws-region: eu-central-1
+        aws-region: eu-central-1
     - name: Test with pytest
       run: |
         make test
