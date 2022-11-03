@@ -5,7 +5,8 @@ from fastapi.responses import StreamingResponse
 
 # from fastapi.responses import FileResponse
 import uvicorn
-#import boto3
+
+# import boto3
 import io
 
 from helper_sagemaker import draw_bounding_boxes3
@@ -30,20 +31,20 @@ async def root():
 async def label_objects(photo: UploadFile = File(...)):
     """upload image"""
 
-    #client = boto3.client("rekognition")
+    # client = boto3.client("rekognition")
 
-    #response = client.detect_labels(Image={"Bytes": photo.file.read()})
-    
+    # response = client.detect_labels(Image={"Bytes": photo.file.read()})
+
     endpoint_name = "faster-rcnn"
-    #normalized_boxes, class_names, scores = query_endpoint2(endpoint_name, photo.file.read())
+    # normalized_boxes, class_names, scores = query_endpoint2(endpoint_name, photo.file.read())
 
     _, class_names, scores = query_endpoint2(endpoint_name, photo.file.read())
-    
+
     response = {}
-    
+
     response["label"] = class_names[0]
     response["confidence"] = scores[0]
-    
+
     return response
 
 
@@ -62,15 +63,14 @@ async def draw_bounding_box(photo: UploadFile = File(...)):
 
     photobytes = bytearray(photo.file.read())
 
-
     endpoint_name = "faster-rcnn"
 
     normalized_boxes, _, _ = query_endpoint2(endpoint_name, photobytes)
-    
+
     image_stream = io.BytesIO(photobytes)
     image_stream.seek(0)
     photo2 = Image.open(image_stream)
-    
+
     rawbox = normalized_boxes[0]
     left, bot, right, top = rawbox
     box = {}

@@ -1,8 +1,6 @@
 import json
 
 
-
-
 def parse_response(query_response):
     model_predictions = json.loads(query_response)
     normalized_boxes, classes, scores, labels = (

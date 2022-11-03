@@ -1,14 +1,10 @@
-import boto3
-import io
-from PIL import Image, ImageDraw, ImageColor
+from PIL import ImageDraw
+
+# from PIL import Image, ImageColor
 
 
-from fastapi import FastAPI, UploadFile, File
-from fastapi import HTTPException
-from fastapi.responses import StreamingResponse
-
-from IPython.display import Image as ipImage
-from IPython.display import display as ipdisplay
+# from IPython.display import Image as ipImage
+# from IPython.display import display as ipdisplay
 
 
 def process_response(response, verbose=False):
@@ -65,13 +61,12 @@ def draw_bounding_boxes(image, box):
 
     # displays image when run from a jupyter notebook; useful for debugging/experimenting
     # you can comment next line out for Swagger UI demo in browser
-    """
-    ipdisplay(image)
-    
-    # save image with boxes to file
-    outpath = "images_with_boxes/pic.png"
-    image.save(outpath)
-    """
+
+    # ipdisplay(image)
+
+    # # save image with boxes to file
+    # outpath = "images_with_boxes/pic.png"
+    # image.save(outpath)
 
     return image
 
@@ -94,12 +89,11 @@ def draw_bounding_boxes3(image, box):
 
     # displays image when run from a jupyter notebook; useful for debugging/experimenting
     # you can comment next line out for Swagger UI demo in browser
-    """
-    ipdisplay(image)
-    
-    # save image with boxes to file
-    outpath = "images_with_boxes/pic.png"
-    image.save(outpath)
-    """
+
+    # ipdisplay(image)
+
+    # # save image with boxes to file
+    # outpath = "images_with_boxes/pic.png"
+    # image.save(outpath)
 
     return image

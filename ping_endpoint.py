@@ -1,12 +1,13 @@
 import boto3
 from jsonresponse import parse_response
-import json
+
+# import json
 
 
 def query_endpoint(endpoint_name="faster-rcnn", image_file_name="Naxos_Taverna.jpg"):
-    #aws_region = boto3.Session().region_name
+    # aws_region = boto3.Session().region_name
 
-    #client = boto3.client("sagemaker-runtime", region_name=aws_region)
+    # client = boto3.client("sagemaker-runtime", region_name=aws_region)
 
     with open(image_file_name, "rb") as file:
         input_img_rb = file.read()
@@ -31,13 +32,10 @@ def query_endpoint(endpoint_name="faster-rcnn", image_file_name="Naxos_Taverna.j
 
     response_readable = response["Body"].read().decode("utf-8")
 
-    '''
-    with open("taverna.json", "w") as file:
-        json.dump(response_readable, file)
-    '''
+    # with open("taverna.json", "w") as file:
+    #    json.dump(response_readable, file)
 
     print(type(response_readable))
-
 
     normalized_boxes, class_names, scores = parse_response(response_readable)
 
@@ -67,13 +65,10 @@ def query_endpoint2(endpoint_name, input_img_rb):
 
     response_readable = response["Body"].read().decode("utf-8")
 
-    '''
-    with open("taverna.json", "w") as file:
-        json.dump(response_readable, file)
-    '''
+    # with open("taverna.json", "w") as file:
+    #    json.dump(response_readable, file)
 
     print(type(response_readable))
-
 
     normalized_boxes, class_names, scores = parse_response(response_readable)
 
