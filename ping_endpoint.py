@@ -15,7 +15,6 @@ def parse_response(query_response):
     return normalized_boxes, class_names, scores
 
 
-
 def query_endpoint(endpoint_name="faster-rcnn", image_file_name="Naxos_Taverna.jpg"):
     # aws_region = boto3.Session().region_name
 
