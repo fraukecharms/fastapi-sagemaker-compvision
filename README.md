@@ -1,5 +1,7 @@
 <div align="center">
+  
 [![Github Actions](https://github.com/fraukecharms/fastapi-sagemaker-compvision/actions/workflows/main.yml/badge.svg)](https://github.com/fraukecharms/fastapi-sagemaker-compvision/actions/workflows/main.yml)
+
 </div>
 
 # Create An Object Detection Demo 
@@ -15,7 +17,7 @@ docker run -p 127.0.0.1:8080:8080 visiondemo
 ```
 
 
-## ECR Instructions
+## Push to ECR
 
 
 <img alt="ECR push commands" width="525" src="https://user-images.githubusercontent.com/3386410/196132461-7cd7c53e-cd52-401e-972c-68fbec15937c.png">
