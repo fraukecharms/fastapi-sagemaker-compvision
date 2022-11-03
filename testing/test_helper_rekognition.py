@@ -51,7 +51,8 @@ def test_draw_bounding_boxes():
 
     imgwbox = draw_bounding_boxes(photo2, boxes[0])
 
-    os.mkdir('images_with_boxes')
+    if not os.path.exists('images_with_boxes'):
+        os.mkdir('images_with_boxes')
     outpath = "images_with_boxes/pic3_box.jpg"
     imgwbox.save(outpath)
     
