@@ -30,8 +30,7 @@ def test_labels():
 
         assert response.status_code == 200
     else:
-        print("endpoint not live, can't test")
-        warnings.warn(UserWarning("endpoint is not live, can't test properly"))
+        warnings.warn(Warning("endpoint is not live, can't test properly"))
         assert True
 
 
