@@ -3,7 +3,7 @@ from main import root
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from main import app
-
+import warnings
 
 def test_main():
 
@@ -31,6 +31,7 @@ def test_labels():
         assert response.status_code == 200
     else:
         print("endpoint not live, can't test")
+        warnings.warn(UserWarning("endpoint is not live, can't test properly"))
         assert True
 
 
