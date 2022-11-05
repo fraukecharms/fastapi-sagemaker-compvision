@@ -42,6 +42,9 @@ docker run -p 127.0.0.1:8080:8080 visiondemo
 
 ```
 
+<img width="525" alt="Screenshot 2022-11-05 at 08 50 13" src="https://user-images.githubusercontent.com/3386410/200109578-1fd2c503-df76-4032-9372-31b608ddbb8f.png">
+
+
 
 ## Run without docker
 
