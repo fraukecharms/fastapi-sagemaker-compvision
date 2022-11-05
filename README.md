@@ -25,6 +25,24 @@ docker run -p 127.0.0.1:8080:8080 visiondemo
 ## Permissions
 
 
+```json
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "tasks.apprunner.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+
+```
+
+
 ## Run without docker
 
 
