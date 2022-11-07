@@ -7,7 +7,10 @@
 # Create An Object Detection Demo 
 
 using AWS Rekognition + FastAPI + AWS App Runner
-Make sure you have the quota to deploy endpoint in the appropriate region.
+
+## Before you start
+
+Make sure you have the quota to deploy your inference endpoint in a region where App Runner is available. In the demo I'm using an `ml.m5.large` instance.
 
 ## Docker Instructions
 
