@@ -28,7 +28,10 @@ docker run -p 127.0.0.1:8080:8080 -v $HOME/.aws/:/root/.aws:ro -e \
 ## Push to ECR
 
 
-<img alt="ECR push commands" width="525" src="https://user-images.githubusercontent.com/3386410/196132461-7cd7c53e-cd52-401e-972c-68fbec15937c.png">
+<img width="1548" alt="Screenshot 2022-11-08 at 09 56 41" src="https://user-images.githubusercontent.com/3386410/200521120-bbf41786-0dc3-46e8-8e33-6fe065375754.png">
+
+
+
 
 ## App Runner Permissions
 
