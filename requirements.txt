@@ -11,3 +11,4 @@ Pillow
 ipython
 nbconvert
 requests
+httpx

@@ -10,7 +10,7 @@ import uvicorn
 import io
 
 from helper_sagemaker import draw_bounding_boxes3
-from ping_endpoint import query_endpoint2
+from helper_sagemaker import query_endpoint2
 from PIL import Image
 
 # from PIL import Image, ImageDraw
