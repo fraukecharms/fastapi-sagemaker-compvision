@@ -10,9 +10,8 @@ import os
 
 
 def test_parse_response(endpoint_name="faster-rcnn", image_file_name="testpics/pic3.jpg"):
-    # aws_region = boto3.Session().region_name
-
-    # client = boto3.client("sagemaker-runtime", region_name=aws_region)
+    #aws_region = 'eu-west-1'
+    #client = boto3.client("sagemaker-runtime", region_name=aws_region)
 
     with open(image_file_name, "rb") as file:
         input_img_rb = file.read()
@@ -22,7 +21,7 @@ def test_parse_response(endpoint_name="faster-rcnn", image_file_name="testpics/p
     # The MIME type of the input data in the request body.
     content_type = "application/x-image"
     # The desired MIME type of the inference in the response.
-    accept = "application/json;verbose;n_predictions=1"
+    accept = "application/json;verbose;n_predictions=3"
     # Payload for inference.
     payload = input_img_rb
 
@@ -33,14 +32,11 @@ def test_parse_response(endpoint_name="faster-rcnn", image_file_name="testpics/p
         Body=payload,
     )
 
-    print(response)
 
     response_readable = response["Body"].read().decode("utf-8")
 
-    # with open("taverna.json", "w") as file:
-    #    json.dump(response_readable, file)
 
-    print(type(response_readable))
+
 
     normalized_boxes, class_names, scores = parse_response(response_readable)
 
