@@ -48,8 +48,8 @@ async def label_objects(photo: UploadFile = File(...)):
     return response
 
 
-@app.post("/draw_box")
-async def draw_bounding_box(photo: UploadFile = File(...)):
+@app.post("/draw_boxes")
+async def draw_boxes(photo: UploadFile = File(...)):
     """upload image"""
 
     filename = photo.filename
