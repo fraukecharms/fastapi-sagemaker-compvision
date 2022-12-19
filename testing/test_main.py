@@ -6,6 +6,7 @@ from main import app
 from helper_sagemaker import list_endpoints
 import warnings
 
+
 def test_main():
 
     assert 200 == 200
@@ -25,7 +26,11 @@ def test_labels():
         response = client.post(
             "/labels",
             files={
-                "photo": ("testpics/pic1.jpg", open("testpics/pic1.jpg", "rb"), "image/jpeg")
+                "photo": (
+                    "testpics/pic1.jpg",
+                    open("testpics/pic1.jpg", "rb"),
+                    "image/jpeg",
+                )
             },
         )
 
@@ -42,7 +47,11 @@ def test_draw_boxes():
         response = client.post(
             "/draw_boxes",
             files={
-                "photo": ("testpics/pic1.jpg", open("testpics/pic1.jpg", "rb"), "image/jpeg")
+                "photo": (
+                    "testpics/pic1.jpg",
+                    open("testpics/pic1.jpg", "rb"),
+                    "image/jpeg",
+                )
             },
         )
 
@@ -50,6 +59,3 @@ def test_draw_boxes():
     else:
         warnings.warn(Warning("endpoint is not live, can't test properly"))
         assert True
-
-
-
