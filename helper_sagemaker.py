@@ -49,20 +49,7 @@ def query_endpoint2(endpoint_name, input_img_rb):
     return normalized_boxes, class_names, scores
 
 
-def list_endpoints():
 
-    client = boto3.client("sagemaker")
-
-    response = client.list_endpoints()
-    # responsedict = json.loads(response)
-
-    endpoints = response["Endpoints"]
-
-    n = len(endpoints)
-
-    for i in range(n):
-        name = endpoints[i]["EndpointName"]
-        print(name)
 
 
 def draw_bounding_boxes3(image, box):
@@ -91,3 +78,23 @@ def draw_bounding_boxes3(image, box):
     # image.save(outpath)
 
     return image
+
+
+        
+        
+def list_endpoints():
+
+    client = boto3.client("sagemaker")
+
+    response = client.list_endpoints()
+    # responsedict = json.loads(response)
+
+    endpoints = response["Endpoints"]
+
+    n = len(endpoints)
+
+    endpointnames = []
+    for i in range(n):
+        name = endpoints[i]["EndpointName"]
+        endpointnames.append(name)
+    return endpointnames

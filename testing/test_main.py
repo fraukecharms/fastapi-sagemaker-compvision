@@ -3,6 +3,7 @@ from main import root
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from main import app
+from helper_sagemaker import list_endpoints
 import warnings
 
 def test_main():
@@ -51,19 +52,4 @@ def test_draw_boxes():
         assert True
 
 
-def list_endpoints():
 
-    client = boto3.client("sagemaker")
-
-    response = client.list_endpoints()
-    # responsedict = json.loads(response)
-
-    endpoints = response["Endpoints"]
-
-    n = len(endpoints)
-
-    endpointnames = []
-    for i in range(n):
-        name = endpoints[i]["EndpointName"]
-        endpointnames.append(name)
-    return endpointnames
