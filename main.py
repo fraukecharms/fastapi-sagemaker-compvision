@@ -9,8 +9,8 @@ import uvicorn
 # import boto3
 import io
 
-from helper_sagemaker import draw_bounding_boxes3
-from helper_sagemaker import query_endpoint2
+from helper_sagemaker import draw_all_boxes
+from helper_sagemaker import query_endpoint
 from PIL import Image
 
 # from PIL import Image, ImageDraw
@@ -38,7 +38,7 @@ async def label_objects(photo: UploadFile = File(...)):
     endpoint_name = "faster-rcnn"
     # normalized_boxes, class_names, scores = query_endpoint2(endpoint_name, photo.file.read())
 
-    _, class_names, scores = query_endpoint2(endpoint_name, photo.file.read())
+    _, class_names, scores = query_endpoint(endpoint_name, photo.file.read())
 
     response = {}
 
@@ -65,21 +65,21 @@ async def draw_boxes(photo: UploadFile = File(...)):
 
     endpoint_name = "faster-rcnn"
 
-    normalized_boxes, _, _ = query_endpoint2(endpoint_name, photobytes)
+    normalized_boxes, classes_names, _ = query_endpoint(endpoint_name, photobytes)
 
     image_stream = io.BytesIO(photobytes)
     image_stream.seek(0)
     photo2 = Image.open(image_stream)
 
-    rawbox = normalized_boxes[0]
-    left, bot, right, top = rawbox
-    box = {}
-    box["Left"] = left
-    box["Top"] = bot
-    box["Right"] = right
-    box["Bottom"] = top
+    # rawbox = normalized_boxes[0]
+    # left, bot, right, top = rawbox
+    # box = {}
+    # box["Left"] = left
+    # box["Top"] = bot
+    # box["Right"] = right
+    # box["Bottom"] = top
 
-    imgwbox = draw_bounding_boxes3(photo2, box)
+    imgwbox = draw_all_boxes(photo2, normalized_boxes, labels = classes_names)
 
     # conversion was necessary when I was being sloppy with jpeg vs png
     # imgwbox2 = imgwbox.convert("RGB")
