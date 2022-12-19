@@ -34,41 +34,17 @@ def query_endpoint(endpoint_name, input_img_rb):
         Body=payload,
     )
 
-    print(response)
 
     response_readable = response["Body"].read().decode("utf-8")
 
-    # with open("taverna.json", "w") as file:
-    #    json.dump(response_readable, file)
-
-    print(type(response_readable))
 
     normalized_boxes, class_names, scores = parse_response(response_readable)
 
-    print(class_names)
     return normalized_boxes, class_names, scores
 
 
 
 
-
-def draw_bounding_boxes3(image, box):
-
-    imgWidth, imgHeight = image.size
-    draw = ImageDraw.Draw(image)
-
-    left = imgWidth * box["Left"]
-    top = imgHeight * box["Top"]
-    right = imgWidth * box["Right"]
-    bottom = imgHeight * box["Bottom"]
-
-    points = [(left, top), (right, bottom)]
-
-    draw.rectangle(points, outline="#c73286", width=4)
-
-
-
-    return image
 
 def draw_all_boxes(image, boxes, labels=None):
 

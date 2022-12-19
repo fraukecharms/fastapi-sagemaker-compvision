@@ -1,11 +1,12 @@
 import boto3
-from helper_sagemaker import parse_response
+from helper_sagemaker import parse_response, query_endpoint, draw_all_boxes
 from PIL import Image, ImageDraw, ImageColor
 from IPython.display import Image as ipImage
 from IPython.display import display as ipdisplay
 from helper_sagemaker import list_endpoints
 import os
 import warnings
+import io
 
 
 
@@ -50,25 +51,26 @@ def test_parse_response(endpoint_name="faster-rcnn", image_file_name="testpics/p
         assert True
 
 
-# def test_draw_bounding_boxes():
+def test_draw_all_boxes():
 
-#     testpic = "testpics/pic3.jpg"
+    testpic = "testpics/pic3.jpg"
 
-#     client = boto3.client("rekognition")
 
-#     with open(testpic, "rb") as photo:
+    with open(testpic, "rb") as photo:
 
-#         response = client.detect_labels(Image={"Bytes": photo.read()})
+        photobytes = bytearray(photo.read())
+        normalized_boxes, class_names, _ = query_endpoint("faster-rcnn", photobytes)
 
-#     boxes = process_response(response)
 
-#     photo2 = Image.open(testpic)
+    image_stream = io.BytesIO(photobytes)
+    image_stream.seek(0)
+    photo2 = Image.open(image_stream)
 
-#     imgwbox = draw_bounding_boxes3(photo2, boxes[0])
+    imgwbox = draw_all_boxes(photo2, normalized_boxes, labels = class_names)
 
-#     if not os.path.exists("images_with_boxes"):
-#         os.mkdir("images_with_boxes")
-#     outpath = "images_with_boxes/pic3_box.jpg"
-#     imgwbox.save(outpath)
+    if not os.path.exists("images_with_boxes"):
+        os.mkdir("images_with_boxes")
+    outpath = "images_with_boxes/pic3_box.jpg"
+    imgwbox.save(outpath)
 
-#     assert os.path.exists(outpath)
+    assert os.path.exists(outpath)
