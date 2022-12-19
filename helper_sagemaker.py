@@ -34,16 +34,11 @@ def query_endpoint(endpoint_name, input_img_rb):
         Body=payload,
     )
 
-
     response_readable = response["Body"].read().decode("utf-8")
-
 
     normalized_boxes, class_names, scores = parse_response(response_readable)
 
     return normalized_boxes, class_names, scores
-
-
-
 
 
 def draw_all_boxes(image, boxes, labels=None):
@@ -93,8 +88,8 @@ def draw_all_boxes(image, boxes, labels=None):
             # draw.rectangle(spaceybox, width = linewidth_textbox)
 
     return image
-        
-        
+
+
 def list_endpoints():
 
     client = boto3.client("sagemaker")

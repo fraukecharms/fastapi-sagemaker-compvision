@@ -79,7 +79,7 @@ async def draw_boxes(photo: UploadFile = File(...)):
     # box["Right"] = right
     # box["Bottom"] = top
 
-    imgwbox = draw_all_boxes(photo2, normalized_boxes, labels = classes_names)
+    imgwbox = draw_all_boxes(photo2, normalized_boxes, labels=classes_names)
 
     # conversion was necessary when I was being sloppy with jpeg vs png
     # imgwbox2 = imgwbox.convert("RGB")
