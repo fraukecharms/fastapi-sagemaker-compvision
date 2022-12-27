@@ -1,7 +1,7 @@
 <div align="center">
   
 [![Github Actions](https://github.com/fraukecharms/fastapi-sagemaker-compvision/actions/workflows/main.yml/badge.svg)](https://github.com/fraukecharms/fastapi-sagemaker-compvision/actions/workflows/main.yml)
-
+![Badge](https://codebuild.eu-west-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiQk1EZHMrdDJlR1l1VFdWeWpIbjduaDNrQnRlZ29KckJLcG9BWmlMSGhEOGRWNm43UTRFb2U2b2RzdGNtcXJ6amcrQ1J5V2d1SVljS3I4VFFuRUdnOVpJPSIsIml2UGFyYW1ldGVyU3BlYyI6Iks5UUU1Z1ljRXdoWDNwTk0iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
 </div>
 
 # Create An Object Detection Demo 
