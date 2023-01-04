@@ -42,8 +42,8 @@ async def label_objects(photo: UploadFile = File(...)):
 
     response = {}
 
-    response["label"] = class_names[0]
-    response["confidence"] = scores[0]
+    response["labels"] = class_names
+    response["confidence"] = scores
 
     return response
 
@@ -65,7 +65,7 @@ async def draw_boxes(photo: UploadFile = File(...)):
 
     endpoint_name = "faster-rcnn"
 
-    normalized_boxes, classes_names, _ = query_endpoint(endpoint_name, photobytes)
+    normalized_boxes, classes_names, conf = query_endpoint(endpoint_name, photobytes)
 
     image_stream = io.BytesIO(photobytes)
     image_stream.seek(0)
@@ -79,7 +79,9 @@ async def draw_boxes(photo: UploadFile = File(...)):
     # box["Right"] = right
     # box["Bottom"] = top
 
-    imgwbox = draw_all_boxes(photo2, normalized_boxes, labels=classes_names)
+    print(conf)
+    print(classes_names)
+    imgwbox = draw_all_boxes(photo2, normalized_boxes, labels=classes_names, conf=conf)
 
     # conversion was necessary when I was being sloppy with jpeg vs png
     # imgwbox2 = imgwbox.convert("RGB")

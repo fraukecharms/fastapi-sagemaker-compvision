@@ -1,6 +1,7 @@
 from PIL import ImageDraw, ImageFont
 import boto3
 import json
+import numpy as np
 
 
 def parse_response(query_response):
@@ -41,31 +42,30 @@ def query_endpoint(endpoint_name, input_img_rb):
     return normalized_boxes, class_names, scores
 
 
-def draw_all_boxes(image, boxes, labels=None):
+def draw_all_boxes(image, boxes, labels=None, conf=None, threshold=0.9):
 
-    imgWidth, imgHeight = image.size
+    img_width, img_height = image.size
     draw = ImageDraw.Draw(image, mode="RGBA")
 
-    linewidth = max(int((imgWidth + imgHeight) // 250), 2)
+    linewidth = max(int((img_width + img_height) // 250), 2)
     linewidth_textbox = max(int(linewidth // 3), 1)
-    print(linewidth_textbox)
+
     textsize = linewidth * 4
-    shift = (
-        -3 * linewidth_textbox,
-        -3 * linewidth_textbox,
-        3 * linewidth_textbox,
-        3 * linewidth_textbox,
-    )
+    shift_const = 3
+    shift = np.array([-1, -1, 1, 1]) * shift_const * linewidth_textbox
+
+    scale = np.array([img_width, img_height, img_width, img_height])
+
+    if conf:
+        inds = [i for i in range(len(conf)) if conf[i] >= threshold]
+        boxes = [boxes[i] for i in inds]
+        if labels:
+            labels = [labels[i] for i in inds]
 
     for i in range(len(boxes)):
 
-        box = boxes[i]
-        left, top, right, bottom = box
-
-        left = imgWidth * left
-        top = imgHeight * top
-        right = imgWidth * right
-        bottom = imgHeight * bottom
+        box = np.array(boxes[i])
+        left, top, right, bottom = box * scale
 
         points = [(left, top), (right, bottom)]
 
