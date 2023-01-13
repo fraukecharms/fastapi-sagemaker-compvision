@@ -42,7 +42,7 @@ def query_endpoint(endpoint_name, input_img_rb):
     return normalized_boxes, class_names, scores
 
 
-def draw_all_boxes(image, boxes, labels=None, conf=None, threshold=0.9):
+def draw_all_boxes(image, boxes, labels, conf=None, threshold=0.9):
 
     img_width, img_height = image.size
     draw = ImageDraw.Draw(image, mode="RGBA")
@@ -59,8 +59,7 @@ def draw_all_boxes(image, boxes, labels=None, conf=None, threshold=0.9):
     if conf:
         inds = [i for i in range(len(conf)) if conf[i] >= threshold]
         boxes = [boxes[i] for i in inds]
-        if labels:
-            labels = [labels[i] for i in inds]
+        labels = [labels[i] for i in inds]
 
     for i in range(len(boxes)):
 
@@ -71,21 +70,20 @@ def draw_all_boxes(image, boxes, labels=None, conf=None, threshold=0.9):
 
         draw.rectangle(points, outline="#c73286", width=linewidth)
 
-        if labels:
-            label = labels[i]
+        label = labels[i]
 
-            font = ImageFont.truetype("font/OpenSans-Regular.ttf", textsize)
+        font = ImageFont.truetype("font/OpenSans-Regular.ttf", textsize)
 
-            textanchor = (left + 2 * linewidth, top + 2 * linewidth)
-            draw.text(textanchor, label, font=font, anchor="lt")
+        textanchor = (left + 2 * linewidth, top + 2 * linewidth)
+        draw.text(textanchor, label, font=font, anchor="lt")
 
-            textbb = draw.textbbox(textanchor, label, font=font, anchor="lt")
-            spaceybox = [sum(x) for x in zip(textbb, shift)]
+        textbb = draw.textbbox(textanchor, label, font=font, anchor="lt")
+        spaceybox = [sum(x) for x in zip(textbb, shift)]
 
-            draw.rectangle(
-                spaceybox, width=linewidth_textbox, fill=(255, 255, 255, 128)
-            )
-            # draw.rectangle(spaceybox, width = linewidth_textbox)
+        draw.rectangle(
+            spaceybox, width=linewidth_textbox, fill=(255, 255, 255, 128)
+        )
+        # draw.rectangle(spaceybox, width = linewidth_textbox)
 
     return image
 

@@ -49,26 +49,71 @@ def test_parse_response(
 def test_draw_all_boxes():
 
     testpic = "testpics/pic3.jpg"
-    
+
     if "faster-rcnn" in list_endpoints():
 
         with open(testpic, "rb") as photo:
-    
+
             photobytes = bytearray(photo.read())
             normalized_boxes, class_names, _ = query_endpoint("faster-rcnn", photobytes)
-    
+
         image_stream = io.BytesIO(photobytes)
         image_stream.seek(0)
         photo2 = Image.open(image_stream)
-    
-        imgwbox = draw_all_boxes(photo2, normalized_boxes, labels=class_names)
-    
+
+        imgwbox = draw_all_boxes(photo2, normalized_boxes, class_names)
+
         if not os.path.exists("images_with_boxes"):
             os.mkdir("images_with_boxes")
         outpath = "images_with_boxes/pic3_box.jpg"
         imgwbox.save(outpath)
-    
+
         assert os.path.exists(outpath)
     else:
         warnings.warn(Warning("endpoint is not live, can't test properly"))
         assert True
+
+
+def test_draw_all_boxes_offline():
+
+    testpic = "testpics/pic3.jpg"
+
+    with open(testpic, "rb") as photo:
+
+        photobytes = bytearray(photo.read())
+
+
+        normalized_boxes = [
+            [
+                0.5020244750976562,
+                0.11704481215704055,
+                0.9877284545898437,
+                0.8276017896172141,
+            ],
+            [
+                0.5168260498046875,
+                0.14498094312187765,
+                0.9850193481445313,
+                0.8013559458207111,
+            ],
+            [
+                0.1347399139404297,
+                0.20392408825102307,
+                0.49069903564453127,
+                0.7880702635057929,
+            ],
+        ]
+        class_names = ["dog", "bear", "bear"]
+
+    image_stream = io.BytesIO(photobytes)
+    image_stream.seek(0)
+    photo2 = Image.open(image_stream)
+
+    imgwbox = draw_all_boxes(photo2, normalized_boxes, labels=class_names)
+
+    if not os.path.exists("images_with_boxes"):
+        os.mkdir("images_with_boxes")
+    outpath = "images_with_boxes/pic3_box.jpg"
+    imgwbox.save(outpath)
+
+    assert os.path.exists(outpath)

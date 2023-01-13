@@ -81,7 +81,7 @@ async def draw_boxes(photo: UploadFile = File(...)):
 
     print(conf)
     print(classes_names)
-    imgwbox = draw_all_boxes(photo2, normalized_boxes, labels=classes_names, conf=conf)
+    imgwbox = draw_all_boxes(photo2, normalized_boxes, classes_names, conf=conf)
 
     # conversion was necessary when I was being sloppy with jpeg vs png
     # imgwbox2 = imgwbox.convert("RGB")
