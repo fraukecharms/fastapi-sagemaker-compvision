@@ -55,7 +55,8 @@ def draw_all_boxes(
         image (Image): image to draw bounding boxes on
         boxes (list[list[float]]): list of bounding box coordinates
         labels (list[str]): list of object class labels
-        conf (list[float], optional): list of confidence values for each detection. Defaults to None.
+        conf (list[float], optional): list of confidence values for each detection. 
+            Defaults to None. 
         threshold (float, optional): optional confidence threshold. Defaults to 0.9.
 
     Returns:
@@ -128,4 +129,5 @@ def list_endpoints() -> list[str]:
     for i in range(n):
         name = endpoints[i]["EndpointName"]
         endpointnames.append(name)
+        
     return endpointnames
