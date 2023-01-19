@@ -31,12 +31,7 @@ async def root():
 async def label_objects(photo: UploadFile = File(...)):
     """upload image"""
 
-    # client = boto3.client("rekognition")
-
-    # response = client.detect_labels(Image={"Bytes": photo.file.read()})
-
     endpoint_name = "faster-rcnn"
-    # normalized_boxes, class_names, scores = query_endpoint2(endpoint_name, photo.file.read())
 
     _, class_names, scores = query_endpoint(endpoint_name, photo.file.read())
 
@@ -67,25 +62,14 @@ async def draw_boxes(photo: UploadFile = File(...)):
 
     normalized_boxes, classes_names, conf = query_endpoint(endpoint_name, photobytes)
 
+    # convert bytearray to PIL image
     image_stream = io.BytesIO(photobytes)
     image_stream.seek(0)
     photo2 = Image.open(image_stream)
 
-    # rawbox = normalized_boxes[0]
-    # left, bot, right, top = rawbox
-    # box = {}
-    # box["Left"] = left
-    # box["Top"] = bot
-    # box["Right"] = right
-    # box["Bottom"] = top
-
-    print(conf)
-    print(classes_names)
     imgwbox = draw_all_boxes(photo2, normalized_boxes, classes_names, conf=conf)
 
-    # conversion was necessary when I was being sloppy with jpeg vs png
-    # imgwbox2 = imgwbox.convert("RGB")
-
+    # save PIL image to image stream
     imstream = io.BytesIO()
     imgwbox.save(imstream, file_ext)
     imstream.seek(0)

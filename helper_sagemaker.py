@@ -93,7 +93,6 @@ def list_endpoints():
     client = boto3.client("sagemaker")
 
     response = client.list_endpoints()
-    # responsedict = json.loads(response)
 
     endpoints = response["Endpoints"]
 
