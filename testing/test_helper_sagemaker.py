@@ -82,7 +82,6 @@ def test_draw_all_boxes_offline():
 
         photobytes = bytearray(photo.read())
 
-
         normalized_boxes = [
             [
                 0.5020244750976562,

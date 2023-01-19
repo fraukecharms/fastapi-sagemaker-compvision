@@ -13,9 +13,6 @@ from helper_sagemaker import draw_all_boxes
 from helper_sagemaker import query_endpoint
 from PIL import Image
 
-# from PIL import Image, ImageDraw
-
-# from PIL import ExifTags, ImageColor
 
 app = FastAPI()
 

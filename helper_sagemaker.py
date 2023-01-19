@@ -1,4 +1,4 @@
-from PIL import ImageDraw, ImageFont
+from PIL import ImageDraw, ImageFont, Image
 import boto3
 import json
 import numpy as np
@@ -12,7 +12,7 @@ def parse_response(query_response):
         model_predictions["scores"],
         model_predictions["labels"],
     )
-    # Substitute the classes index with the classes name
+    # Substitute the class index with the class name
     class_names = [labels[int(idx)] for idx in classes]
     return normalized_boxes, class_names, scores
 
@@ -42,18 +42,40 @@ def query_endpoint(endpoint_name, input_img_rb):
     return normalized_boxes, class_names, scores
 
 
-def draw_all_boxes(image, boxes, labels, conf=None, threshold=0.9):
+def draw_all_boxes(
+    image: Image,
+    boxes: list[list[float]],
+    labels: list[str],
+    conf: list[float] = None,
+    threshold=0.9,
+) -> Image:
+    """draw bounding boxes on PIL image
+
+    Args:
+        image (Image): image to draw bounding boxes on
+        boxes (list[list[float]]): list of bounding box coordinates
+        labels (list[str]): list of object class labels
+        conf (list[float], optional): list of confidence values for each detection. Defaults to None.
+        threshold (float, optional): optional confidence threshold. Defaults to 0.9.
+
+    Returns:
+        Image: PIL Image with boxes
+    """
 
     img_width, img_height = image.size
     draw = ImageDraw.Draw(image, mode="RGBA")
 
+    # set bounding box linewidth based on image size
+    # for object bounding box and text bounding box
     linewidth = max(int((img_width + img_height) // 250), 2)
     linewidth_textbox = max(int(linewidth // 3), 1)
-
     textsize = linewidth * 4
+
+    # margins for text bounding box
     shift_const = 3
     shift = np.array([-1, -1, 1, 1]) * shift_const * linewidth_textbox
 
+    # scaling factors for rescaling normalized boxes
     scale = np.array([img_width, img_height, img_width, img_height])
 
     if conf:
@@ -78,17 +100,21 @@ def draw_all_boxes(image, boxes, labels, conf=None, threshold=0.9):
         draw.text(textanchor, label, font=font, anchor="lt")
 
         textbb = draw.textbbox(textanchor, label, font=font, anchor="lt")
+
+        # add margins to tight text bounding box
         spaceybox = [sum(x) for x in zip(textbb, shift)]
 
-        draw.rectangle(
-            spaceybox, width=linewidth_textbox, fill=(255, 255, 255, 128)
-        )
-        # draw.rectangle(spaceybox, width = linewidth_textbox)
+        draw.rectangle(spaceybox, width=linewidth_textbox, fill=(255, 255, 255, 128))
 
     return image
 
 
-def list_endpoints():
+def list_endpoints() -> list[str]:
+    """list live Sagemaker endpoints
+
+    Returns:
+        list[str]: list of endpoint names
+    """
 
     client = boto3.client("sagemaker")
 
