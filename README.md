@@ -4,11 +4,11 @@
 ![Badge](https://codebuild.eu-west-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiQk1EZHMrdDJlR1l1VFdWeWpIbjduaDNrQnRlZ29KckJLcG9BWmlMSGhEOGRWNm43UTRFb2U2b2RzdGNtcXJ6amcrQ1J5V2d1SVljS3I4VFFuRUdnOVpJPSIsIml2UGFyYW1ldGVyU3BlYyI6Iks5UUU1Z1ljRXdoWDNwTk0iLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
 </div>
 
-# Create An Object Detection Demo 
+# Create an Object Detection Demo 
 
 using AWS Rekognition + FastAPI + AWS App Runner
 
-## Before you start
+## Before You Start
 
 Make sure you have the quota to deploy your inference endpoint in a region where App Runner is available. In the demo I'm using an `ml.m5.large` instance.
 
