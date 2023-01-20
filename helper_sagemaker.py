@@ -5,6 +5,16 @@ import numpy as np
 
 
 def parse_response(query_response: str) -> tuple[list, list, list]:
+    """extract bounding box coordinates, class labels, confidence values from sagemaker 
+    response
+
+    Args:
+        query_response (str): response string
+
+    Returns:
+        tuple[list, list, list]: bounding box coordinates, class labels, confidence 
+            values
+    """
 
     model_predictions = json.loads(query_response)
     normalized_boxes, classes, scores, labels = (
@@ -21,6 +31,16 @@ def parse_response(query_response: str) -> tuple[list, list, list]:
 def query_endpoint(
     endpoint_name: str, input_img_rb: bytearray
 ) -> tuple[list, list, list]:
+    """send image to sagemaker endpoint
+
+    Args:
+        endpoint_name (str): endpoint name
+        input_img_rb (bytearray): image
+
+    Returns:
+        tuple[list, list, list]: bounding box coordinates, class labels, confidence 
+            values
+    """
 
     client = boto3.client("sagemaker-runtime")
 

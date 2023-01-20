@@ -37,7 +37,6 @@ def test_parse_response(
         )
 
         response_readable = response["Body"].read().decode("utf-8")
-
         normalized_boxes, class_names, scores = parse_response(response_readable)
 
         assert len(normalized_boxes) > 0
