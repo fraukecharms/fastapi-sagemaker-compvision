@@ -16,11 +16,11 @@ Make sure you have the quota to deploy your inference endpoint in a region where
 
 
 ```sh
-docker build --tag visiondemo-rekognition .
+docker build --tag visiondemo-sagemaker .
 ```
 ```sh
 docker run -p 127.0.0.1:8080:8080 -v $HOME/.aws/:/root/.aws:ro -e \
-    AWS_PROFILE=default visiondemo-rekognition
+    AWS_PROFILE=default visiondemo-sagemaker
 ```
 
 
