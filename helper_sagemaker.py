@@ -4,7 +4,8 @@ import json
 import numpy as np
 
 
-def parse_response(query_response):
+def parse_response(query_response: str) -> tuple[list, list, list]:
+
     model_predictions = json.loads(query_response)
     normalized_boxes, classes, scores, labels = (
         model_predictions["normalized_boxes"],
@@ -17,7 +18,9 @@ def parse_response(query_response):
     return normalized_boxes, class_names, scores
 
 
-def query_endpoint(endpoint_name, input_img_rb):
+def query_endpoint(
+    endpoint_name: str, input_img_rb: bytearray
+) -> tuple[list, list, list]:
 
     client = boto3.client("sagemaker-runtime")
 
@@ -55,8 +58,8 @@ def draw_all_boxes(
         image (Image): image to draw bounding boxes on
         boxes (list[list[float]]): list of bounding box coordinates
         labels (list[str]): list of object class labels
-        conf (list[float], optional): list of confidence values for each detection. 
-            Defaults to None. 
+        conf (list[float], optional): list of confidence values for each detection.
+            Defaults to None.
         threshold (float, optional): optional confidence threshold. Defaults to 0.9.
 
     Returns:
@@ -71,6 +74,7 @@ def draw_all_boxes(
     linewidth = max(int((img_width + img_height) // 250), 2)
     linewidth_textbox = max(int(linewidth // 3), 1)
     textsize = linewidth * 4
+    font = ImageFont.truetype("font/OpenSans-Regular.ttf", textsize)
 
     # margins for text bounding box
     shift_const = 3
@@ -86,25 +90,20 @@ def draw_all_boxes(
 
     for i in range(len(boxes)):
 
+        # draw object bounding box
         box = np.array(boxes[i])
         left, top, right, bottom = box * scale
-
         points = [(left, top), (right, bottom)]
-
         draw.rectangle(points, outline="#c73286", width=linewidth)
 
+        # draw label text
         label = labels[i]
-
-        font = ImageFont.truetype("font/OpenSans-Regular.ttf", textsize)
-
         textanchor = (left + 2 * linewidth, top + 2 * linewidth)
         draw.text(textanchor, label, font=font, anchor="lt")
 
+        # draw label bounding box with added margins
         textbb = draw.textbbox(textanchor, label, font=font, anchor="lt")
-
-        # add margins to tight text bounding box
         spaceybox = [sum(x) for x in zip(textbb, shift)]
-
         draw.rectangle(spaceybox, width=linewidth_textbox, fill=(255, 255, 255, 128))
 
     return image
@@ -129,5 +128,5 @@ def list_endpoints() -> list[str]:
     for i in range(n):
         name = endpoints[i]["EndpointName"]
         endpointnames.append(name)
-        
+
     return endpointnames
