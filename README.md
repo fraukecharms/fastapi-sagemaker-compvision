@@ -6,7 +6,7 @@
 
 # Create an Object Detection Demo 
 
-You can use this repo to quickly create a live public(!) demo website for object detection. The prediction requests are sent to your own Sagemaker endpoint. If you are looking for a solution that sends requests to AWS' buit-in Rekognition service instead, check out [this repo](https://github.com/fraukecharms/fastapi-rekognition-compvision).
+You can use this repo to quickly create a live public(!) demo website for object detection. The prediction requests are sent to your own Sagemaker endpoint. If you are looking for a solution that sends requests to AWS' built-in Rekognition service instead, check out [this repo](https://github.com/fraukecharms/fastapi-rekognition-compvision).
 
 ## Before You Start
 
