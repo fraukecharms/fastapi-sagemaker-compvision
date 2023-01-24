@@ -10,7 +10,7 @@ using AWS Rekognition + FastAPI + AWS App Runner
 
 ## Before You Start
 
-Make sure you have the quota to deploy your inference endpoint in a region where App Runner is available. In the demo I'm using an `ml.m5.large` instance.
+Make sure that you do all your work in a region where App Runner is available (e.g. eu-west-1 if you are based in Europe) and that you have the quota to deploy your inference endpoint in that region. In the demo I'm using an `ml.m5.large` instance.
 
 ## Docker Instructions
 
