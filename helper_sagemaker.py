@@ -1,18 +1,19 @@
+from typing import Tuple, List
 from PIL import ImageDraw, ImageFont, Image
 import boto3
 import json
 import numpy as np
 
 
-def parse_response(query_response: str) -> tuple[list, list, list]:
-    """extract bounding box coordinates, class labels, confidence values from sagemaker 
+def parse_response(query_response: str) -> Tuple[list, list, list]:
+    """extract bounding box coordinates, class labels, confidence values from sagemaker
     response
 
     Args:
         query_response (str): response string
 
     Returns:
-        tuple[list, list, list]: bounding box coordinates, class labels, confidence 
+        tuple[list, list, list]: bounding box coordinates, class labels, confidence
             values
     """
 
@@ -30,7 +31,7 @@ def parse_response(query_response: str) -> tuple[list, list, list]:
 
 def query_endpoint(
     endpoint_name: str, input_img_rb: bytearray
-) -> tuple[list, list, list]:
+) -> Tuple[list, list, list]:
     """send image to sagemaker endpoint
 
     Args:
@@ -38,7 +39,7 @@ def query_endpoint(
         input_img_rb (bytearray): image
 
     Returns:
-        tuple[list, list, list]: bounding box coordinates, class labels, confidence 
+        Tuple[list, list, list]: bounding box coordinates, class labels, confidence
             values
     """
 
@@ -67,18 +68,18 @@ def query_endpoint(
 
 def draw_all_boxes(
     image: Image,
-    boxes: list[list[float]],
-    labels: list[str],
-    conf: list[float] = None,
+    boxes: List[List[float]],
+    labels: List[str],
+    conf: List[float] = None,
     threshold=0.9,
 ) -> Image:
     """draw bounding boxes on PIL image
 
     Args:
         image (Image): image to draw bounding boxes on
-        boxes (list[list[float]]): list of bounding box coordinates
-        labels (list[str]): list of object class labels
-        conf (list[float], optional): list of confidence values for each detection.
+        boxes (List[List[float]]): list of bounding box coordinates
+        labels (List[str]): list of object class labels
+        conf (List[float], optional): list of confidence values for each detection.
             Defaults to None.
         threshold (float, optional): optional confidence threshold. Defaults to 0.9.
 
@@ -129,11 +130,11 @@ def draw_all_boxes(
     return image
 
 
-def list_endpoints() -> list[str]:
+def list_endpoints() -> List[str]:
     """list live Sagemaker endpoints
 
     Returns:
-        list[str]: list of endpoint names
+        List[str]: list of endpoint names
     """
 
     client = boto3.client("sagemaker")
