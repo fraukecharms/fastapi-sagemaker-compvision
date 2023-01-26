@@ -126,7 +126,7 @@ def draw_all_boxes(
         draw.rectangle(spaceybox, width=linewidth_textbox, fill=(255, 255, 255, 128))
         
         # draw label text
-        draw.text(textanchor, label, font=font, anchor="lt", fill = "#323232")
+        draw.text(textanchor, label, font=font, anchor="lt", fill = "#000000")
 
 
 
