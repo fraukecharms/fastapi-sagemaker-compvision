@@ -40,7 +40,6 @@ docker run -p 127.0.0.1:8080:8080 -v $HOME/.aws/:/root/.aws:ro -e \
 
 
 ```json
-
 {
     "Version": "2012-10-17",
     "Statement": [
