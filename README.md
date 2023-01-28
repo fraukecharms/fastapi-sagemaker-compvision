@@ -15,11 +15,11 @@ Make sure that you do all your work in a region where App Runner is available (e
 ## Walk-Through Screen Recording
 [Here](https://www.youtube.com/watch?v=y6bNoQvozu8) is an example of setting up a Cloud9 environment for your repo. Once that is up and running, feel free to follow along here:
 
-[![Sagemaker Object Detection Demo (via FastAPI & AWS App Runner)](https://user-images.githubusercontent.com/3386410/215267012-0106238f-7819-4f32-8905-9ddd082f9a17.jpg)](https://www.youtube.com/watch?v=73Jx7qS393c)
+[![Sagemaker Object Detection Demo (via FastAPI & AWS App Runner)](https://user-images.githubusercontent.com/3386410/215270756-f4515685-6b0e-4a9c-831c-3b8aeade51f7.png)](https://www.youtube.com/watch?v=3gYK3uCbd7g)
 
 
-## Docker Instructions!
 
+## Docker Instructions
 
 
 ```sh
