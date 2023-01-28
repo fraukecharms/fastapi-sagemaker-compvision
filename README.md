@@ -13,9 +13,13 @@ You can use this repo to quickly create a live public(!) demo website for object
 Make sure that you do all your work in a region where App Runner is available (e.g. `eu-west-1` if you are based in Europe) and that you have the quota to deploy your inference endpoint in that region. In the demo I'm using an `ml.m5.large` instance.
 
 ## Walk-Through Screen Recording
-to be recorded
+[Here](https://www.youtube.com/watch?v=y6bNoQvozu8) is an example of setting up a Cloud9 environment for your repo. Once that is up and running, feel free to follow along here:
 
-## Docker Instructions
+[![Sagemaker Object Detection Demo (via FastAPI & AWS App Runner)](https://user-images.githubusercontent.com/3386410/215267012-0106238f-7819-4f32-8905-9ddd082f9a17.jpg)](https://www.youtube.com/watch?v=73Jx7qS393c)
+
+
+## Docker Instructions!
+
 
 
 ```sh
